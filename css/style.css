@@ -1,10 +1,358 @@
+html,
 body {
-  background: #fff;
-  color: rgba(255, 255, 255, 0.4);
+  width: 100%;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+body {
   background: #222;
+  color: rgba(255, 255, 255, 0.4);
   line-height: 1.7;
   font-size: 16px;
   font-weight: 300;
+}
+
+/* Portfolio opening intro screen */
+body.intro-active {
+  overflow: hidden;
+}
+
+/* Full-screen intro */
+.portfolio-intro {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  min-height: 100%;
+  background: radial-gradient(
+    circle at center,
+    #263037 0%,
+    #15191c 48%,
+    #050607 100%
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  text-align: center;
+  z-index: 9999;
+  padding: max(20px, env(safe-area-inset-top))
+    max(20px, env(safe-area-inset-right)) max(20px, env(safe-area-inset-bottom))
+    max(20px, env(safe-area-inset-left));
+
+  transition:
+    transform 0.75s cubic-bezier(0.77, 0, 0.18, 1),
+    opacity 0.75s ease;
+}
+
+/* Intro moves upward */
+.portfolio-intro.intro-slide-up {
+  transform: translateY(-100%);
+  opacity: 0;
+}
+
+/* Intro content */
+.portfolio-intro-content {
+  position: relative;
+  z-index: 5;
+  width: 100%;
+  max-width: 1100px;
+  padding: 20px;
+}
+
+/* Hello text */
+.intro-hello {
+  margin: 0 0 8px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: clamp(14px, 1.7vw, 21px);
+  font-weight: 300;
+  line-height: 1.4;
+  letter-spacing: clamp(2px, 0.5vw, 5px);
+  text-transform: uppercase;
+
+  animation: introHelloFade 0.6s ease 0.1s both;
+}
+
+/* Name */
+.intro-name {
+  margin: 0;
+  color: #bac964;
+  font-size: clamp(48px, 10vw, 115px);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: clamp(1px, 0.3vw, 3px);
+  overflow-wrap: break-word;
+
+  text-shadow:
+    0 0 15px rgba(186, 201, 100, 0.3),
+    0 0 35px rgba(186, 201, 100, 0.15);
+
+  animation: introNameReveal 0.8s ease-out 0.25s both;
+}
+
+/* Designation */
+.intro-designation {
+  max-width: 900px;
+  margin: clamp(14px, 3vh, 24px) auto 0;
+  color: #ffffff;
+  font-size: clamp(17px, 3vw, 32px);
+  font-weight: 300;
+  line-height: 1.4;
+  letter-spacing: clamp(1px, 0.3vw, 3px);
+  overflow-wrap: break-word;
+
+  animation: designationPop 0.65s cubic-bezier(0.34, 1.56, 0.64, 1) 1.05s both;
+}
+
+/* Star layers */
+.stars {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* Small stars */
+.stars-one {
+  background-image:
+    radial-gradient(circle at 8% 15%, #fff 0 1px, transparent 2px),
+    radial-gradient(circle at 18% 75%, #fff 0 1px, transparent 2px),
+    radial-gradient(circle at 28% 35%, #fff 0 1px, transparent 2px),
+    radial-gradient(circle at 38% 85%, #fff 0 1px, transparent 2px),
+    radial-gradient(circle at 48% 18%, #fff 0 1px, transparent 2px),
+    radial-gradient(circle at 58% 68%, #fff 0 1px, transparent 2px),
+    radial-gradient(circle at 68% 30%, #fff 0 1px, transparent 2px),
+    radial-gradient(circle at 78% 82%, #fff 0 1px, transparent 2px),
+    radial-gradient(circle at 88% 22%, #fff 0 1px, transparent 2px),
+    radial-gradient(circle at 95% 62%, #fff 0 1px, transparent 2px);
+
+  animation: twinkleStarsOne 1.4s ease-in-out infinite alternate;
+}
+
+/* Medium stars */
+.stars-two {
+  background-image:
+    radial-gradient(circle at 5% 48%, #fff 0 1.5px, transparent 2.5px),
+    radial-gradient(circle at 16% 28%, #fff 0 1.5px, transparent 2.5px),
+    radial-gradient(circle at 25% 90%, #fff 0 1.5px, transparent 2.5px),
+    radial-gradient(circle at 35% 12%, #fff 0 1.5px, transparent 2.5px),
+    radial-gradient(circle at 45% 58%, #fff 0 1.5px, transparent 2.5px),
+    radial-gradient(circle at 57% 88%, #fff 0 1.5px, transparent 2.5px),
+    radial-gradient(circle at 66% 10%, #fff 0 1.5px, transparent 2.5px),
+    radial-gradient(circle at 75% 52%, #fff 0 1.5px, transparent 2.5px),
+    radial-gradient(circle at 84% 35%, #fff 0 1.5px, transparent 2.5px),
+    radial-gradient(circle at 92% 88%, #fff 0 1.5px, transparent 2.5px);
+
+  animation: twinkleStarsTwo 2s ease-in-out infinite alternate;
+}
+
+/* Larger glowing stars */
+.stars-three {
+  background-image:
+    radial-gradient(
+      circle at 12% 60%,
+      rgba(186, 201, 100, 0.9) 0 2px,
+      transparent 4px
+    ),
+    radial-gradient(
+      circle at 31% 22%,
+      rgba(255, 255, 255, 0.9) 0 2px,
+      transparent 4px
+    ),
+    radial-gradient(
+      circle at 52% 78%,
+      rgba(186, 201, 100, 0.8) 0 2px,
+      transparent 4px
+    ),
+    radial-gradient(
+      circle at 72% 18%,
+      rgba(255, 255, 255, 0.9) 0 2px,
+      transparent 4px
+    ),
+    radial-gradient(
+      circle at 90% 68%,
+      rgba(186, 201, 100, 0.8) 0 2px,
+      transparent 4px
+    );
+
+  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.6));
+  animation: twinkleStarsThree 1.1s ease-in-out infinite alternate;
+}
+
+/* Text animations */
+@keyframes introHelloFade {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes introNameReveal {
+  from {
+    opacity: 0;
+    transform: translateY(25px) scale(0.94);
+    letter-spacing: 10px;
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    letter-spacing: clamp(1px, 0.3vw, 3px);
+  }
+}
+
+@keyframes designationPop {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.75);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Twinkling animations */
+@keyframes twinkleStarsOne {
+  from {
+    opacity: 0.25;
+  }
+
+  to {
+    opacity: 0.9;
+  }
+}
+
+@keyframes twinkleStarsTwo {
+  from {
+    opacity: 0.15;
+    transform: scale(1);
+  }
+
+  to {
+    opacity: 0.75;
+    transform: scale(1.015);
+  }
+}
+
+@keyframes twinkleStarsThree {
+  from {
+    opacity: 0.25;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* Tablets */
+@media (max-width: 991px) {
+  .portfolio-intro-content {
+    max-width: 750px;
+  }
+
+  .intro-name {
+    font-size: clamp(55px, 12vw, 90px);
+  }
+
+  .intro-designation {
+    max-width: 650px;
+  }
+}
+
+/* Mobile phones */
+@media (max-width: 767px) {
+  .portfolio-intro {
+    padding: 18px;
+  }
+
+  .portfolio-intro-content {
+    padding: 15px;
+  }
+
+  .intro-hello {
+    font-size: 14px;
+    letter-spacing: 3px;
+  }
+
+  .intro-name {
+    font-size: clamp(44px, 15vw, 70px);
+    line-height: 1.1;
+  }
+
+  .intro-designation {
+    max-width: 330px;
+    margin-top: 16px;
+    font-size: clamp(16px, 5vw, 21px);
+    line-height: 1.5;
+    letter-spacing: 1.5px;
+  }
+}
+
+/* Small mobile phones */
+@media (max-width: 400px) {
+  .portfolio-intro-content {
+    padding: 8px;
+  }
+
+  .intro-hello {
+    font-size: 12px;
+    letter-spacing: 2px;
+  }
+
+  .intro-name {
+    font-size: clamp(40px, 14vw, 58px);
+  }
+
+  .intro-designation {
+    max-width: 280px;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+}
+
+/* Short-height devices and landscape phones */
+@media (max-height: 500px) {
+  .portfolio-intro-content {
+    padding: 8px;
+  }
+
+  .intro-hello {
+    margin-bottom: 2px;
+    font-size: 12px;
+  }
+
+  .intro-name {
+    font-size: clamp(40px, 12vh, 65px);
+  }
+
+  .intro-designation {
+    margin-top: 8px;
+    font-size: 15px;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .portfolio-intro,
+  .intro-hello,
+  .intro-name,
+  .intro-designation,
+  .stars-one,
+  .stars-two,
+  .stars-three {
+    animation: none;
+    transition-duration: 0.3s;
+  }
 }
 
 .p1-gradient-bg,
@@ -28,11 +376,6 @@ body {
 }
 
 ::selection {
-  background: #000;
-  color: #fff;
-}
-
-::-moz-selection {
   background: #000;
   color: #fff;
 }
@@ -71,14 +414,12 @@ a:active {
   border: none;
   -webkit-box-shadow: none;
   box-shadow: none;
-  border-radius: 0px;
-  margin-bottom: 0px;
-  background: none;
+  border-radius: 0;
+  margin-bottom: 0;
   position: absolute;
   top: 20px;
   width: 100%;
   z-index: 200;
-  background: #fff;
 }
 .site-navbar .navbar-brand {
   display: inline-block;
@@ -111,7 +452,6 @@ a:active {
   color: #bac964 !important;
   font-size: 14px;
   font-weight: 400;
-  letter-spacing: 0.1em;
   position: relative;
   text-transform: uppercase;
   letter-spacing: 0.2em;
@@ -353,6 +693,19 @@ a:active {
 .btn.btn-primary:active,
 .btn.btn-primary:focus {
   background: #b2c251;
+}
+
+.hero-profile-img {
+  display: block;
+  width: min(330px, 100%);
+  height: auto;
+  aspect-ratio: 1 / 1;
+  margin: 0 auto;
+  object-fit: cover;
+  object-position: center top;
+  border: 5px solid #bac964;
+  border-radius: 50%;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.45);
 }
 
 .progress {
@@ -802,4 +1155,227 @@ a:active {
   height: 250px; /* Set a fixed height for the images */
   object-fit: cover; /* Ensure the image scales proportionally without distortion */
   width: 100%; /* Ensure the image stretches to fill the width of the container */
+}
+
+/* =========================================
+   Main hero section
+========================================= */
+
+.site-hero,
+.site-hero .row {
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+.site-hero .intro-text {
+  position: relative;
+  z-index: 2;
+}
+
+.hero-image-column {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-right: 28px;
+}
+
+.hero-text-column {
+  position: relative;
+  z-index: 3;
+  min-width: 0;
+  padding-left: 28px;
+}
+
+.site-hero h1 {
+  margin-bottom: 20px;
+  font-size: clamp(52px, 5vw, 70px);
+  line-height: 1.1;
+}
+
+.site-hero h1 strong {
+  overflow-wrap: anywhere;
+}
+
+.hero-role {
+  width: 100%;
+  max-width: 720px;
+  margin-top: 12px;
+  text-align: left;
+}
+
+.hero-role-title {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(22px, 2.2vw, 34px);
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: 0.5px;
+}
+
+.hero-tech-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.hero-tech-stack span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 14px;
+  border: 1px solid rgba(186, 201, 100, 0.5);
+  border-radius: 999px;
+  background: rgba(186, 201, 100, 0.06);
+  color: #d3df85;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.6px;
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.hero-tech-stack span:hover {
+  background: #bac964;
+  color: #171717;
+  transform: translateY(-2px);
+}
+
+.hero-actions {
+  margin-top: 28px;
+}
+
+/* Medium laptops */
+@media (max-width: 1199px) {
+  .hero-image-column {
+    padding-right: 20px;
+  }
+
+  .hero-text-column {
+    padding-left: 20px;
+  }
+
+  .hero-profile-img {
+    width: min(285px, 100%);
+  }
+
+  .site-hero h1 {
+    font-size: clamp(46px, 5.3vw, 58px);
+  }
+
+  .hero-role-title {
+    font-size: 25px;
+  }
+}
+
+/* Tablet and smaller */
+@media (max-width: 991px) {
+  .site-hero,
+  .site-hero .row {
+    height: auto;
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+
+  .site-hero .intro-text {
+    flex-direction: column;
+    padding-top: 110px;
+    padding-bottom: 60px;
+  }
+
+  .hero-image-column,
+  .hero-text-column {
+    flex: 0 0 100% !important;
+    width: 100%;
+    max-width: 100% !important;
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+
+  .hero-profile-img {
+    width: min(280px, 70vw);
+  }
+
+  .hero-text-column {
+    padding-top: 30px !important;
+    text-align: center !important;
+  }
+
+  .hero-role {
+    max-width: 620px;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+  }
+
+  .hero-tech-stack {
+    justify-content: center;
+  }
+}
+
+/* Mobile */
+@media (max-width: 576px) {
+  .site-hero .intro-text {
+    padding-top: 90px;
+    padding-bottom: 45px;
+  }
+
+  .hero-profile-img {
+    width: min(225px, 68vw);
+    border-width: 4px;
+  }
+
+  .hero-text-column {
+    padding-top: 24px !important;
+  }
+
+  .site-hero h3 {
+    font-size: 20px;
+  }
+
+  .site-hero h1 {
+    margin-bottom: 15px;
+    font-size: clamp(42px, 14vw, 58px);
+  }
+
+  .hero-role {
+    margin-top: 8px;
+  }
+
+  .hero-role-title {
+    font-size: 21px;
+    line-height: 1.35;
+  }
+
+  .hero-tech-stack {
+    gap: 8px;
+    margin-top: 17px;
+  }
+
+  .hero-tech-stack span {
+    padding: 7px 11px;
+    font-size: 11px;
+  }
+
+  .hero-actions {
+    margin-top: 24px;
+  }
+}
+
+/* Very small phones */
+@media (max-width: 380px) {
+  .hero-profile-img {
+    width: min(200px, 66vw);
+  }
+
+  .site-hero h1 {
+    font-size: 40px;
+  }
+
+  .hero-role-title {
+    font-size: 19px;
+  }
 }
